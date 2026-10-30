@@ -1,0 +1,3 @@
+@echo off
+echo Launching Cyber-Emerald Portfolio Preview...
+start "" "%~dp0preview.html"

@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ansiya Nehak | AIML & Web Developer Portfolio</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            carbon: {
+              950: '#06090e',
+              900: '#0d1117',
+              850: '#11161d',
+              800: '#161b22',
+              700: '#21262d',
+              600: '#30363d',
+            },
+            cyber: {
+              emerald: '#10b981',
+              emeraldGlow: '#34d399',
+              lime: '#a3e635',
+              limeBright: '#bef264',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Bulletproof Base Styling */
+    html, body {
+      background-color: #0d1117;
+      color: #f0fdf4;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    ::selection {
+      background-color: #10b981;
+      color: #0d1117;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d1117;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+    @keyframes radarPing {
+      75%, 100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+    .animate-radar-ping {
+      animation: radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .glow-emerald-btn {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+    }
+    .glow-emerald-btn:hover {
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.65);
+    }
+    .frosted-glass {
+      background: rgba(13, 17, 23, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    .project-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .project-card:hover {
+      box-shadow: 0 20px 45px -12px rgba(0,0,0,0.85), 0 0 30px rgba(16, 185, 129, 0.38);
+      border-color: rgba(16, 185, 129, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-[#0d1117] text-slate-100 min-h-screen relative">
+
+  <!-- Interactive HTML5 Canvas Matrix-Dot Grid -->
+  <canvas id="matrix-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-80"></canvas>
+
+  <!-- Floating Frosted Glass Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-4 transition-all duration-300">
+    <nav id="navbar" class="max-w-6xl mx-auto rounded-2xl md:rounded-full frosted-glass py-3.5 px-5 sm:px-7 shadow-2xl transition-all duration-300">
+      <div class="flex items-center justify-between">
+        <!-- Logo / Name -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-carbon-800 border border-emerald-500/40 group-hover:border-emerald-400 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all">
+            <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-lime-300 transition-colors">&lt;AN&gt;</span>
+            <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+          <span class="text-sm sm:text-base font-bold text-slate-100 flex items-center gap-1.5">
+            Ansiya Nehak
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">AIML '28</span>
+          </span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center gap-2">
+          <a href="#about" class="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-full transition-all">About</a>
+          <a href="#projects" class="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-full transition-all">Projects</a>
+          <a href="#skills" class="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-full transition-all">Skills</a>
+          <a href="#campus-life" class="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-full transition-all">Campus Life</a>
+          <a href="#contact" class="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-full transition-all">Contact</a>
+        </div>
+
+        <!-- Action Button & Mobile Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-4 py-2 rounded-full border border-emerald-500/40 text-emerald-300 bg-carbon-800/80 hover:bg-emerald-500 hover:text-carbon-950 transition-all">
+            <span>Get in Touch</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+
+          <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-carbon-800/80 border border-emerald-500/30 text-emerald-400" aria-label="Toggle Menu">
+            <svg id="menu-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            <svg id="close-icon" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden mt-3 pt-3 border-t border-emerald-500/20 flex flex-col gap-1.5 pb-2">
+        <a href="#about" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10">About</a>
+        <a href="#projects" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10">Projects</a>
+        <a href="#skills" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10">Skills</a>
+        <a href="#campus-life" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10">Campus Life</a>
+        <a href="#contact" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="relative z-10">
+    
+    <!-- 1. Opening Hero Intro Screen -->
+    <section class="relative min-h-screen pt-28 sm:pt-36 pb-16 flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <!-- Ambient Glow Orbs -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] md:w-[750px] md:h-[450px] bg-gradient-to-tr from-emerald-500/10 via-lime-400/5 to-transparent blur-3xl pointer-events-none rounded-full -z-10"></div>
+
+      <div class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left: Headline, Radar Badge, Student Bio, CTA -->
+        <div class="lg:col-span-7 flex flex-col items-start space-y-6">
+          
+          <!-- Animated Radar Status Badge -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-radar-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+            </span>
+            <span class="font-mono text-xs font-semibold text-emerald-300 tracking-wide flex items-center gap-1.5">
+              Student Developer
+              <span class="text-emerald-500/60">//</span>
+              <span class="text-lime-300">Open for Internships</span>
+            </span>
+          </div>
+
+          <!-- Main Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-100 leading-[1.12]">
+            Hey, I am <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Ansiya Nehak</span> — Building the Future of Tech.
+          </h1>
+
+          <!-- Student Bio -->
+          <p class="text-base sm:text-lg text-slate-300/90 leading-relaxed font-normal max-w-2xl">
+            <span class="text-emerald-300 font-semibold bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30 font-mono text-sm inline-block mr-1">
+              BE in AIML • 2nd Year
+            </span>
+            <span class="text-slate-200 font-medium">KS Institute of Technology</span> passionate about <span class="text-emerald-300 font-medium">web development</span>, <span class="text-lime-300 font-medium">AI</span>, and building real-world projects.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
+            <!-- Glowing Emerald Primary Button -->
+            <a href="#projects" class="glow-emerald-btn group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-400 to-emerald-500 text-slate-950 transition-all duration-300 hover:-translate-y-1">
+              <span>View My Projects</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+
+            <!-- Outline Secondary Button -->
+            <a href="#contact" class="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-emerald-300 bg-carbon-900/80 hover:bg-carbon-800 border border-emerald-500/30 hover:border-lime-400 hover:text-lime-300 transition-all duration-300 hover:-translate-y-1">
+              <svg class="w-4 h-4 text-emerald-400 group-hover:text-lime-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <span>Download Resume / CV</span>
+            </a>
+          </div>
+
+          <!-- Badges -->
+          <div className="pt-4 flex flex-wrap items-center gap-3 text-xs font-mono text-slate-400" style="display: flex; gap: 0.75rem; font-family: monospace; font-size: 0.75rem;">
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-carbon-800/60 border border-emerald-500/15 text-slate-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>AIML Core</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-carbon-800/60 border border-emerald-500/15 text-slate-300">
+              <span class="w-2 h-2 rounded-full bg-lime-400"></span>
+              <span>Modern Full-Stack</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-carbon-800/60 border border-emerald-500/15 text-slate-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>KSIT Bangalore</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Cyber Terminal HUD -->
+        <div class="lg:col-span-5 relative w-full">
+          <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 via-lime-400/15 to-emerald-600/20 rounded-2xl blur-xl opacity-70"></div>
+          <div class="relative rounded-2xl bg-[#0d1117] border border-emerald-500/30 shadow-2xl overflow-hidden font-mono text-xs">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-carbon-800/80 border-b border-emerald-500/20">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                <span class="ml-2 text-slate-400 text-[11px]">ansiya@ksit:~</span>
+              </div>
+              <button id="copy-email-btn" class="text-slate-400 hover:text-emerald-300 transition-colors p-1 rounded hover:bg-carbon-700/50">
+                <span id="copy-text">Copy Email</span>
+              </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-5 space-y-4 text-slate-300">
+              <p class="text-emerald-400 flex items-center gap-2">
+                <span class="text-lime-400 font-bold">➜</span>
+                <span class="text-emerald-300">portfolio</span>
+                <span class="text-slate-500">git:(main)</span>
+                <span class="text-slate-100">cat student_profile.json</span>
+              </p>
+
+              <div class="bg-carbon-950/80 p-3.5 rounded-xl border border-emerald-500/15 leading-relaxed space-y-1">
+                <p class="text-slate-400">&#123;</p>
+                <p class="pl-4"><span class="text-emerald-400">"name"</span>: <span class="text-lime-300">"Ansiya Nehak"</span>,</p>
+                <p class="pl-4"><span class="text-emerald-400">"degree"</span>: <span class="text-slate-200">"BE in AIML (2nd Year)"</span>,</p>
+                <p class="pl-4"><span class="text-emerald-400">"college"</span>: <span class="text-slate-200">"KS Institute of Technology"</span>,</p>
+                <p class="pl-4"><span class="text-emerald-400">"status"</span>: <span class="text-emerald-300 font-semibold">"Ready for Internships ⚡"</span></p>
+                <p class="text-slate-400">&#125;</p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+                <div class="p-2 rounded bg-carbon-900 border border-emerald-500/20 text-slate-200 flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  React & Tailwind
+                </div>
+                <div class="p-2 rounded bg-carbon-900 border border-emerald-500/20 text-slate-200 flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  Python & PyTorch
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Featured Projects Showcase (Directly below Hero) -->
+    <section id="projects" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 border-t border-emerald-500/15">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-emerald-500/15 pb-8">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>PORTFOLIO SHOWCASE // 02</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100">
+            Featured <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Projects</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-400 max-w-xl">
+            Real-world web applications and AI/ML systems engineered with modern frameworks, clean architectures, and interactive 3D physics.
+          </p>
+        </div>
+
+        <!-- Filter Pill Row -->
+        <div class="flex flex-wrap items-center gap-2 bg-carbon-900/90 p-1.5 rounded-2xl border border-emerald-500/20 backdrop-blur-md">
+          <button onclick="filterProjects('All')" data-filter="All" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-400 text-carbon-950 shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all">
+            All (3)
+          </button>
+          <button onclick="filterProjects('Web Apps')" data-filter="Web Apps" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all">
+            Web Apps (2)
+          </button>
+          <button onclick="filterProjects('AI / ML')" data-filter="AI / ML" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all">
+            AI / ML (1)
+          </button>
+          <button onclick="filterProjects('Mini-Projects')" data-filter="Mini-Projects" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all">
+            Mini-Projects (1)
+          </button>
+        </div>
+      </div>
+
+      <!-- 3-Column Responsive Grid with Interactive 3D Perspective Tilt Physics -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        
+        <!-- Project 1: Campus Event Finder -->
+        <div class="project-card relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20" data-cat="Web Apps">
+          <div class="shine-overlay pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-carbon-900 border border-emerald-500/25 text-[11px] font-mono font-medium text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Web Apps
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">Campus Life</span>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100 hover:text-emerald-300 transition-colors mb-3">
+              Campus Event Finder
+            </h3>
+
+            <p class="text-sm text-slate-300/85 leading-relaxed font-normal mb-6">
+              A centralized campus discovery platform that unifies all college departmental fests, workshops, and hackathons into a single real-time feed. Eliminates scattered announcements by providing live RSVP tracking, event reminders, and digital admission passes.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">React</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Firebase</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Tailwind</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Cloud Functions</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-4 border-t border-emerald-500/15">
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs bg-emerald-500 text-carbon-950 hover:bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 transition-all">
+              <span>Live Demo</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-slate-200 bg-carbon-900 border border-emerald-500/30 hover:border-lime-400 hover:text-lime-300 hover:-translate-y-0.5 transition-all">
+              <span>GitHub Code</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2: Smart Attendance Tracker -->
+        <div class="project-card relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20" data-cat="AI / ML">
+          <div class="shine-overlay pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-carbon-900 border border-emerald-500/25 text-[11px] font-mono font-medium text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                AI / ML
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">AIML Vision</span>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100 hover:text-emerald-300 transition-colors mb-3">
+              Smart Attendance Tracker
+            </h3>
+
+            <p class="text-sm text-slate-300/85 leading-relaxed font-normal mb-6">
+              An automated facial recognition attendance system that processes live lecture classroom video streams using deep facial embeddings. Replaces tedious manual roll-calls with instant Excel/CSV report exports, absentee notifications, and proxy detection.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Python</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">OpenCV</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">PyTorch</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">FastAPI</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-4 border-t border-emerald-500/15">
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs bg-emerald-500 text-carbon-950 hover:bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 transition-all">
+              <span>Live Demo</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-slate-200 bg-carbon-900 border border-emerald-500/30 hover:border-lime-400 hover:text-lime-300 hover:-translate-y-0.5 transition-all">
+              <span>GitHub Code</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3: Student Notes Marketplace -->
+        <div class="project-card relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20" data-cat="Web Apps">
+          <div class="shine-overlay pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-carbon-900 border border-emerald-500/25 text-[11px] font-mono font-medium text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Web Apps
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">Academic Hub</span>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100 hover:text-emerald-300 transition-colors mb-3">
+              Student Notes Marketplace
+            </h3>
+
+            <p class="text-sm text-slate-300/85 leading-relaxed font-normal mb-6">
+              A collaborative student marketplace where undergraduates can upload, preview, and exchange verified semester lecture notes and exam guides. Features course and branch categorization, built-in PDF security watermarking, and peer review rankings.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Tailwind</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Node.js</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Express</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-4 border-t border-emerald-500/15">
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs bg-emerald-500 text-carbon-950 hover:bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 transition-all">
+              <span>Live Demo</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-slate-200 bg-carbon-900 border border-emerald-500/30 hover:border-lime-400 hover:text-lime-300 hover:-translate-y-0.5 transition-all">
+              <span>GitHub Code</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4: Attendance & GPA Forecaster (Mini-Projects) -->
+        <div class="project-card relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20 hidden" data-cat="Mini-Projects">
+          <div class="shine-overlay pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-carbon-900 border border-emerald-500/25 text-[11px] font-mono font-medium text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Mini-Projects
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">Student Utility</span>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100 hover:text-emerald-300 transition-colors mb-3">
+              Attendance &amp; GPA Forecaster
+            </h3>
+
+            <p class="text-sm text-slate-300/85 leading-relaxed font-normal mb-6">
+              A lightweight analytical tool that calculates attendance cutoff margins and predicts the minimum internal assessment marks needed to hit target semester SGPA. Delivers automated safety alerts so engineering students never fall below mandatory attendance requirements.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Python</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">FastAPI</span>
+              <span class="px-2.5 py-1 rounded-lg bg-carbon-950/70 border border-emerald-500/20 text-xs font-mono text-slate-300">Chart.js</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-4 border-t border-emerald-500/15">
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs bg-emerald-500 text-carbon-950 hover:bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 transition-all">
+              <span>Live Demo</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-slate-200 bg-carbon-900 border border-emerald-500/30 hover:border-lime-400 hover:text-lime-300 hover:-translate-y-0.5 transition-all">
+              <span>GitHub Code</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Tech Stack & Skills Showcase (Directly below Projects) -->
+    <section id="skills" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 border-t border-emerald-500/15">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>CAPABILITIES & ARSENAL // 03</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100">
+            Tech Stack &amp; <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Skills</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-400 max-w-xl">
+            A comprehensive look at my programming languages, frameworks, developer tooling, and core academic computer science foundations.
+          </p>
+        </div>
+
+        <!-- Comfort Level Legend -->
+        <div class="flex flex-wrap items-center gap-3 bg-carbon-900/80 p-2.5 rounded-2xl border border-emerald-500/20 backdrop-blur-md">
+          <div class="flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-lg bg-carbon-800/60 border border-slate-700/60">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"></span>
+            <span class="text-emerald-300">Proficient</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-lg bg-carbon-800/60 border border-slate-700/60">
+            <span class="w-2 h-2 rounded-full bg-lime-400 shadow-[0_0_8px_#a3e635]"></span>
+            <span class="text-lime-300">Familiar</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-lg bg-carbon-800/60 border border-slate-700/60">
+            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#2dd4bf]"></span>
+            <span class="text-teal-300">Currently Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Categorized Panels -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        
+        <!-- Category 1: Languages -->
+        <div class="relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/85 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:border-emerald-500/40 transition-all duration-300 group">
+          <div class="mb-6 pb-4 border-b border-emerald-500/15">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2 rounded-xl bg-carbon-900 border border-emerald-500/30 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 tracking-tight">Languages</h3>
+                <p class="text-xs text-slate-400 font-mono mt-0.5">6 competencies</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 leading-relaxed">Core programming & scripting languages</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-auto">
+            <!-- C++ -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">DSA & STL algorithms</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-blue-400 font-mono">C++</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">C++</span>
+            </div>
+
+            <!-- Python -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">AIML, automation & OpenCV</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-yellow-400 font-mono">Py</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Python</span>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Modern ES6+ & DOM</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-amber-300 font-mono">JS</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">JavaScript</span>
+            </div>
+
+            <!-- Java -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-lime-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-lime-300">Familiar</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">OOP & Systems</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-orange-400 font-mono">☕</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Java</span>
+            </div>
+
+            <!-- SQL -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Queries & Schema Design</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 font-mono">SQL</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">SQL</span>
+            </div>
+
+            <!-- TypeScript -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-teal-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-teal-300">Learning</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Type-Safe React</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-sky-400 font-mono">TS</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">TypeScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 2: Frameworks & Tools -->
+        <div class="relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/85 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:border-emerald-500/40 transition-all duration-300 group">
+          <div class="mb-6 pb-4 border-b border-emerald-500/15">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2 rounded-xl bg-carbon-900 border border-emerald-500/30 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 tracking-tight">Frameworks &amp; Tools</h3>
+                <p class="text-xs text-slate-400 font-mono mt-0.5">6 competencies</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 leading-relaxed">Full-stack libraries, SDKs &amp; developer workflow</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-auto">
+            <!-- React -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Hooks & Architecture</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-cyan-400">⚛</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">React</span>
+            </div>
+
+            <!-- Tailwind CSS -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Cyber Theme Styling</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-sky-400">🌊</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Tailwind CSS</span>
+            </div>
+
+            <!-- Node.js -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-lime-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-lime-300">Familiar</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Express & REST APIs</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-green-400">⬢</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Node.js</span>
+            </div>
+
+            <!-- Git / GitHub -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Git flow & Branching</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-red-400">⎇</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Git / GitHub</span>
+            </div>
+
+            <!-- FastAPI -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-lime-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-lime-300">Familiar</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Python Web Microservices</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-teal-400">⚡</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">FastAPI</span>
+            </div>
+
+            <!-- PyTorch -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-teal-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-teal-300">Learning</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Neural Network Tensors</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-orange-400">🔥</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">PyTorch</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3: Core CS Concepts -->
+        <div class="relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#131b24]/85 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:border-emerald-500/40 transition-all duration-300 group">
+          <div class="mb-6 pb-4 border-b border-emerald-500/15">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2 rounded-xl bg-carbon-900 border border-emerald-500/30 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M12 18v4"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 tracking-tight">Core CS Concepts</h3>
+                <p class="text-xs text-slate-400 font-mono mt-0.5">6 competencies</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 leading-relaxed">Foundational computer science &amp; engineering principles</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-auto">
+            <!-- Data Structures -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Trees, Graphs &amp; Hash Maps</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400">📦</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Data Structures</span>
+            </div>
+
+            <!-- OOP -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Design Patterns</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-lime-400">🧱</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">OOP</span>
+            </div>
+
+            <!-- DBMS -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-emerald-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-emerald-300">Proficient</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">ACID, Schema &amp; Indexes</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400">🗄️</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">DBMS</span>
+            </div>
+
+            <!-- Operating Systems -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-lime-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-lime-300">Familiar</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Threads &amp; Memory</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-sky-400">⚙️</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Operating Sys</span>
+            </div>
+
+            <!-- Computer Networks -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-lime-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-lime-300">Familiar</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">TCP/IP, Routing &amp; HTTP</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-indigo-400">🌐</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Networks</span>
+            </div>
+
+            <!-- Machine Learning -->
+            <div class="relative group/skill flex items-center gap-2.5 p-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 cursor-pointer transition-all duration-200 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <div class="absolute -top-11 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/skill:opacity-100 group-hover/skill:-top-12 transition-all duration-200 z-30 flex flex-col items-center whitespace-nowrap">
+                <div class="px-2.5 py-1 rounded-lg bg-[#0d1117] border border-teal-500/40 shadow-[0_8px_20px_rgba(0,0,0,0.8)] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                  <span class="text-[11px] font-mono font-semibold text-teal-300">Learning</span>
+                  <span class="text-slate-500 text-[10px]">//</span>
+                  <span class="text-[10px] text-slate-300">Deep Learning &amp; LLMs</span>
+                </div>
+                <div class="w-2 h-2 bg-[#0d1117] border-r border-b border-emerald-500/40 rotate-45 -mt-1"></div>
+              </div>
+              <span class="text-xs font-bold text-lime-400">🧠</span>
+              <span class="text-xs sm:text-sm font-medium text-slate-200 group-hover/skill:text-emerald-300 transition-colors">Machine Learn</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. Education & Campus Journey (Directly below Skills) -->
+    <section id="campus-life" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 border-t border-emerald-500/15">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>ACADEMIC ROADMAP // 04</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100">
+            Education &amp; <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Campus Journey</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-400 max-w-xl">
+            My collegiate progression, academic milestones, and competitive extracurricular accomplishments at KSIT Bangalore.
+          </p>
+        </div>
+
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-carbon-900/90 border border-emerald-500/25 font-mono text-xs text-slate-300 backdrop-blur-md">
+          <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Bangalore, India • VTU Affiliated</span>
+        </div>
+      </div>
+
+      <!-- Grid: Left = Timeline, Right = Achievement Badges -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        <!-- Left: Interactive Milestone Timeline (lg:col-span-7) -->
+        <div class="lg:col-span-7 relative">
+          <!-- Illuminated Emerald Vertical Line with Glow -->
+          <div 
+            class="absolute left-[19px] sm:left-[23px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-emerald-400 via-emerald-500/80 to-emerald-500/20 shadow-[0_0_12px_#10b981]"
+            aria-hidden="true"
+          ></div>
+
+          <div class="space-y-8 sm:space-y-10">
+            <!-- Milestone 1: 2026 -->
+            <div class="relative flex items-start gap-4 sm:gap-6 group">
+              <!-- Glowing Nodal Dot -->
+              <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-carbon-900 border border-emerald-500/40 group-hover:border-emerald-400 group-hover:shadow-[0_0_18px_rgba(16,185,129,0.5)] transition-all duration-300">
+                <span class="relative flex h-3.5 w-3.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400 shadow-[0_0_10px_#10b981]"></span>
+                </span>
+              </div>
+
+              <!-- Content Card -->
+              <div class="flex-1 rounded-2xl p-5 sm:p-6 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20 shadow-[0_6px_25px_rgba(0,0,0,0.4)] group-hover:border-emerald-500/45 group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(16,185,129,0.2)] group-hover:-translate-y-0.5 transition-all duration-300">
+                <div class="flex items-center justify-between mb-2.5">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                      2026
+                    </span>
+                    <span class="font-mono text-[10px] uppercase tracking-wider font-semibold text-lime-300 bg-lime-950/60 border border-lime-500/30 px-2 py-0.5 rounded">
+                      Current Focus
+                    </span>
+                  </div>
+                  <span class="text-[11px] font-mono text-slate-500">2nd Year</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">
+                  B.Tech / BE 2nd Year — AIML
+                </h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5 mb-2.5">
+                  K.S. Institute of Technology, Bangalore
+                </p>
+                <p class="text-sm text-slate-300/85 leading-relaxed font-normal">
+                  Specializing in Artificial Intelligence &amp; Machine Learning, exploring deep vision models, intelligent agents, and full-stack web platforms.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 2: 2025 -->
+            <div class="relative flex items-start gap-4 sm:gap-6 group">
+              <!-- Glowing Nodal Dot -->
+              <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-carbon-900 border border-emerald-500/40 group-hover:border-emerald-400 group-hover:shadow-[0_0_18px_rgba(16,185,129,0.5)] transition-all duration-300">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"></span>
+              </div>
+
+              <!-- Content Card -->
+              <div class="flex-1 rounded-2xl p-5 sm:p-6 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20 shadow-[0_6px_25px_rgba(0,0,0,0.4)] group-hover:border-emerald-500/45 group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(16,185,129,0.2)] group-hover:-translate-y-0.5 transition-all duration-300">
+                <div class="flex items-center justify-between mb-2.5">
+                  <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    2025
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-500">1st Year</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">
+                  B.Tech / BE 1st Year — Engineering Core
+                </h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5 mb-2.5">
+                  K.S. Institute of Technology, Bangalore
+                </p>
+                <p class="text-sm text-slate-300/85 leading-relaxed font-normal">
+                  Mastered foundational engineering sciences, algorithmic problem solving in C/C++, object-oriented programming, and discrete mathematics.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 3: 2024 -->
+            <div class="relative flex items-start gap-4 sm:gap-6 group">
+              <!-- Glowing Nodal Dot -->
+              <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-carbon-900 border border-emerald-500/40 group-hover:border-emerald-400 group-hover:shadow-[0_0_18px_rgba(16,185,129,0.5)] transition-all duration-300">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70 group-hover:bg-lime-300 transition-colors"></span>
+              </div>
+
+              <!-- Content Card -->
+              <div class="flex-1 rounded-2xl p-5 sm:p-6 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/20 shadow-[0_6px_25px_rgba(0,0,0,0.4)] group-hover:border-emerald-500/45 group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(16,185,129,0.2)] group-hover:-translate-y-0.5 transition-all duration-300">
+                <div class="flex items-center justify-between mb-2.5">
+                  <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    2024
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-500">Higher Secondary</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">
+                  2nd PU — Science (PCMC)
+                </h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5 mb-2.5">
+                  Pre-University College Education
+                </p>
+                <p class="text-sm text-slate-300/85 leading-relaxed font-normal">
+                  Graduated with high distinction in Physics, Chemistry, Mathematics, and Computer Science, establishing a rigorous analytical foundation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Achievement Badges (Compact 2x2 Grid) (lg:col-span-5) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="rounded-2xl p-6 sm:p-7 bg-[#131b24]/85 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-emerald-500/15">
+              <div class="flex items-center gap-2.5">
+                <div class="p-2 rounded-xl bg-carbon-900 border border-emerald-500/30 text-emerald-400">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-slate-100">Achievement Callouts</h3>
+                  <p class="text-xs font-mono text-slate-400 mt-0.5">Accolades &amp; activities</p>
+                </div>
+              </div>
+              <span class="text-emerald-400 text-xs font-mono bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">HONORS</span>
+            </div>
+
+            <!-- Compact 2x2 Grid with Subtle Hover Highlights -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <!-- Badge 1: Hackathon -->
+              <div class="group relative flex flex-col justify-between p-4 rounded-xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-2xl">🏆</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-950 border border-emerald-500/20 text-emerald-400">Hackathon</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">3rd Place</h4>
+                  <p class="text-xs font-semibold text-lime-400 mt-0.5 font-mono">University Hackathon</p>
+                  <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">Built AI automated attendance prototype in a 24-hr sprint.</p>
+                </div>
+              </div>
+
+              <!-- Badge 2: LeetCode -->
+              <div class="group relative flex flex-col justify-between p-4 rounded-xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-2xl">⚡</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-950 border border-emerald-500/20 text-emerald-400">DSA</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">50+ Problems</h4>
+                  <p class="text-xs font-semibold text-lime-400 mt-0.5 font-mono">LeetCode Solved</p>
+                  <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">Consistent practice across arrays, strings, binary search &amp; trees.</p>
+                </div>
+              </div>
+
+              <!-- Badge 3: Tech Club Member -->
+              <div class="group relative flex flex-col justify-between p-4 rounded-xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-2xl">👥</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-950 border border-emerald-500/20 text-emerald-400">Campus</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">Tech Club Member</h4>
+                  <p class="text-xs font-semibold text-lime-400 mt-0.5 font-mono">KSIT Tech Society</p>
+                  <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">Contributing to technical workshops &amp; peer learning initiatives.</p>
+                </div>
+              </div>
+
+              <!-- Badge 4: Certification -->
+              <div class="group relative flex flex-col justify-between p-4 rounded-xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-2xl">📜</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-950 border border-emerald-500/20 text-emerald-400">Certified</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">AI &amp; Python Dev</h4>
+                  <p class="text-xs font-semibold text-lime-400 mt-0.5 font-mono">Coursework Honors</p>
+                  <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">Completed verified coursework in Machine Learning &amp; Web APIs.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campus Highlight Callout -->
+            <div class="mt-5 p-4 rounded-xl bg-carbon-950/70 border border-emerald-500/15 flex items-start gap-3 text-xs text-slate-300">
+              <span class="text-emerald-400 text-sm">✔</span>
+              <p class="leading-relaxed">
+                <span class="text-emerald-300 font-semibold">Active Campus Engagement:</span> Participating in hackathons, collaborative AIML student chapters, and peer coding workshops at KSIT.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. About Section Anchor -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-emerald-500/15">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full">
+          05 // ABOUT ME
+        </span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 sm:p-7 rounded-2xl bg-[#131b24]/80 border border-emerald-500/20 backdrop-blur-md">
+          <div class="text-emerald-400 mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">KSIT Bangalore</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Pursuing Bachelor of Engineering in Artificial Intelligence & Machine Learning (AIML), 2nd Year student engineer.
+          </p>
+        </div>
+        <div class="p-6 sm:p-7 rounded-2xl bg-[#131b24]/80 border border-emerald-500/20 backdrop-blur-md">
+          <div class="text-lime-400 mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M12 18v4"/></svg></div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">AI & Machine Learning</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Building practical neural systems, computer vision pipelines, and integrating intelligent agent workflows with LLM APIs.
+          </p>
+        </div>
+        <div class="p-6 sm:p-7 rounded-2xl bg-[#131b24]/80 border border-emerald-500/20 backdrop-blur-md">
+          <div class="text-emerald-400 mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">Modern Web Engineering</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Architecting performant, pixel-perfect user experiences with React, Tailwind CSS, TypeScript, and modern backend services.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6. Student-Friendly 'Get In Touch' Section -->
+    <section id="contact" class="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-emerald-500/15">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        
+        <!-- Left: Headline, Subtitle, Status & Magnetic Direct Links -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>GET IN TOUCH // 05</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100 leading-tight">
+            Let’s Collaborate &amp; <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Build</span>
+          </h2>
+
+          <p class="text-base text-slate-300/90 leading-relaxed">
+            Open for summer internships, open-source projects, or tech chats. Drop me a message!
+          </p>
+
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-carbon-900/90 border border-emerald-500/20 text-xs font-mono text-emerald-300">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Response Time: Typically under 24 hours</span>
+          </div>
+
+          <!-- Direct Links with Magnetic Hover Effect -->
+          <div class="space-y-3 pt-2">
+            <!-- GitHub Magnetic Link -->
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="magnetic-btn group relative flex items-center justify-between p-4 rounded-2xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all duration-200">
+              <div class="flex items-center gap-3.5">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-carbon-950 border border-emerald-500/25 group-hover:border-emerald-400 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">GitHub</h4>
+                  <p class="text-xs font-mono text-slate-400">Explore open-source repositories</p>
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+
+            <!-- LinkedIn Magnetic Link -->
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="magnetic-btn group relative flex items-center justify-between p-4 rounded-2xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all duration-200">
+              <div class="flex items-center gap-3.5">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-carbon-950 border border-emerald-500/25 group-hover:border-emerald-400 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">LinkedIn</h4>
+                  <p class="text-xs font-mono text-slate-400">Connect professionally &amp; chat</p>
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+
+            <!-- Email Magnetic Link -->
+            <a href="mailto:ansiyanehak@gmail.com" class="magnetic-btn group relative flex items-center justify-between p-4 rounded-2xl bg-carbon-900/90 border border-emerald-500/20 hover:border-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all duration-200">
+              <div class="flex items-center gap-3.5">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-carbon-950 border border-emerald-500/25 group-hover:border-emerald-400 text-emerald-400 group-hover:text-lime-300 transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors">Direct Email</h4>
+                  <p class="text-xs font-mono text-slate-400">ansiyanehak@gmail.com</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono px-2.5 py-1 rounded-lg bg-carbon-800 text-emerald-400 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:text-carbon-950 transition-all">
+                Mail
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Glass Contact Form -->
+        <div class="lg:col-span-7">
+          <div class="relative rounded-3xl p-7 sm:p-9 bg-[#131b24]/90 backdrop-blur-xl border border-emerald-500/25 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-emerald-500/15">
+              <div>
+                <h3 class="text-xl font-bold text-slate-100">Send a Direct Message</h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5">Let's discuss opportunities &amp; tech projects</p>
+              </div>
+              <span class="text-emerald-400 text-xs font-mono bg-emerald-950/60 px-2.5 py-1 rounded border border-emerald-500/30">ONLINE</span>
+            </div>
+
+            <form id="contact-form" class="space-y-5">
+              <div>
+                <label class="block text-xs font-mono font-medium text-slate-300 mb-2">
+                  Your Name <span class="text-emerald-400">*</span>
+                </label>
+                <input
+                  id="form-name"
+                  type="text"
+                  required
+                  placeholder="e.g. Alex Morgan"
+                  class="w-full px-4 py-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono font-medium text-slate-300 mb-2">
+                  Your Email <span class="text-emerald-400">*</span>
+                </label>
+                <input
+                  id="form-email"
+                  type="email"
+                  required
+                  placeholder="e.g. alex@company.com"
+                  class="w-full px-4 py-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono font-medium text-slate-300 mb-2">
+                  Your Message <span class="text-emerald-400">*</span>
+                </label>
+                <textarea
+                  id="form-message"
+                  required
+                  rows="4"
+                  placeholder="Tell me about your internship role, project idea, or just say hello..."
+                  class="w-full px-4 py-3 rounded-xl bg-carbon-900/90 border border-emerald-500/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all resize-none"
+                ></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                id="submit-btn"
+                type="submit"
+                class="w-full py-4 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-400 to-emerald-500 text-carbon-950 shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.65)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+              >
+                <span id="submit-spinner" class="hidden">
+                  <svg class="animate-spin w-4 h-4 text-carbon-950" viewBox="0 0 24 24" fill="none">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </span>
+                <span id="submit-text">Send Message</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Clean Footer with Required Centered Line -->
+  <footer class="relative z-10 border-t border-emerald-500/15 py-12 px-4 sm:px-6 lg:px-8 bg-[#0d1117]/95 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-6 text-center">
+      
+      <!-- Centered Signature Line -->
+      <p class="text-sm sm:text-base font-medium text-slate-200 tracking-wide">
+        Designed &amp; Engineered by <span class="font-bold bg-gradient-to-r from-emerald-400 to-lime-300 bg-clip-text text-transparent">Ansiya nehak</span> • <span class="font-mono text-emerald-300">Class of 2029</span>
+      </p>
+
+      <!-- Direct Social Icons -->
+      <div class="flex items-center gap-5 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors p-2 rounded-xl hover:bg-carbon-900 border border-transparent hover:border-emerald-500/20" aria-label="GitHub">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors p-2 rounded-xl hover:bg-carbon-900 border border-transparent hover:border-emerald-500/20" aria-label="LinkedIn">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="mailto:ansiyanehak@gmail.com" class="hover:text-emerald-400 transition-colors p-2 rounded-xl hover:bg-carbon-900 border border-transparent hover:border-emerald-500/20" aria-label="Email">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Bottom Meta & Back to top -->
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full pt-6 border-t border-emerald-500/10 text-xs font-mono text-slate-500 gap-4">
+        <p>© 2026 Ansiya nehak • All rights reserved</p>
+        
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-carbon-900/90 border border-emerald-500/20 text-slate-400 hover:text-emerald-300 hover:border-emerald-400/50 transition-all">
+          <span>Back to top</span>
+          <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Interactive Mouse Feature (Easter Egg: Custom Cursor Follower & Trailing Spark) -->
+  <div id="cursor-core" class="pointer-events-none fixed z-50 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] transition-transform duration-75 hidden md:block" aria-hidden="true"></div>
+  <div id="cursor-ring" class="pointer-events-none fixed z-40 w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-400/40 bg-emerald-500/10 backdrop-blur-[1px] transition-all duration-300 ease-out hidden md:block" aria-hidden="true"></div>
+
+  <!-- Native Robust Interactivity (Zero Runtime CDN Dependencies Needed) -->
+  <script>
+    // 1. Mobile Menu Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        const isClosed = mobileMenu.classList.contains('hidden');
+        if (isClosed) {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      });
+    }
+
+    // 2. Email Copy Button
+    const copyBtn = document.getElementById('copy-email-btn');
+    const copyText = document.getElementById('copy-text');
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard?.writeText('ansiyanehak@example.com');
+        copyText.textContent = 'Copied!';
+        copyText.classList.add('text-emerald-400');
+        setTimeout(() => {
+          copyText.textContent = 'Copy Email';
+          copyText.classList.remove('text-emerald-400');
+        }, 2000);
+      });
+    }
+
+    // 3. Project Filtering Logic
+    function filterProjects(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-400 text-carbon-950 shadow-[0_0_18px_rgba(16,185,129,0.45)] transition-all';
+        } else {
+          btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all';
+        }
+      });
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach((card, index) => {
+        const cardCat = card.getAttribute('data-cat');
+        if (category === 'All') {
+          if (index < 3) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        } else if (cardCat === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // 4. 3D Perspective Tilt Physics & Cursor Spotlight
+    document.querySelectorAll('.project-card').forEach(card => {
+      const shine = card.querySelector('.shine-overlay');
+
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const xPct = mouseX / rect.width;
+        const yPct = mouseY / rect.height;
+
+        const rotateX = ((yPct - 0.5) * -12).toFixed(2);
+        const rotateY = ((xPct - 0.5) * 12).toFixed(2);
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale3d(1.02, 1.02, 1.02)`;
+
+        if (shine) {
+          shine.style.opacity = '1';
+          shine.style.background = `radial-gradient(circle 280px at ${mouseX}px ${mouseY}px, rgba(16, 185, 129, 0.22), rgba(163, 230, 53, 0.08) 40%, transparent 80%)`;
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
+        if (shine) {
+          shine.style.opacity = '0';
+        }
+      });
+    });
+
+    // 5. HTML5 Canvas Matrix-Dot Grid Animation
+    (function initMatrixCanvas() {
+      const canvas = document.getElementById('matrix-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      const mouse = {
+        x: width / 2,
+        y: height / 2,
+        targetX: width / 2,
+        targetY: height / 2,
+        radius: 175
+      };
+
+      const spacing = 36;
+      let cols = Math.ceil(width / spacing) + 2;
+      let rows = Math.ceil(height / spacing) + 2;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        cols = Math.ceil(width / spacing) + 2;
+        rows = Math.ceil(height / spacing) + 2;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.targetX = e.clientX - rect.left;
+        mouse.targetY = e.clientY - rect.top;
+      });
+
+      let time = 0;
+      function animate() {
+        time += 0.015;
+        mouse.x += (mouse.targetX - mouse.x) * 0.08;
+        mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const glowGrad = ctx.createRadialGradient(
+          mouse.x, mouse.y, 0,
+          mouse.x, mouse.y, mouse.radius * 2
+        );
+        glowGrad.addColorStop(0, 'rgba(16, 185, 129, 0.09)');
+        glowGrad.addColorStop(0.5, 'rgba(163, 230, 53, 0.02)');
+        glowGrad.addColorStop(1, 'rgba(13, 17, 23, 0)');
+        ctx.fillStyle = glowGrad;
+        ctx.fillRect(0, 0, width, height);
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const originX = c * spacing;
+            const originY = r * spacing;
+
+            const dx = mouse.x - originX;
+            const dy = mouse.y - originY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            const wave = Math.sin(time + originX * 0.008 + originY * 0.008) * 1.5;
+
+            let rippleX = 0;
+            let rippleY = 0;
+            let dotRadius = 1.2;
+            let alpha = 0.16;
+            let isNeon = false;
+
+            if (dist < mouse.radius) {
+              const factor = (1 - dist / mouse.radius);
+              const angle = Math.atan2(dy, dx);
+              const force = Math.sin(factor * Math.PI) * 12;
+              rippleX = -Math.cos(angle) * force;
+              rippleY = -Math.sin(angle) * force;
+
+              dotRadius = 1.2 + factor * 2.4;
+              alpha = 0.2 + factor * 0.8;
+              isNeon = true;
+            }
+
+            const finalX = originX + rippleX;
+            const finalY = originY + rippleY + wave;
+
+            ctx.beginPath();
+            ctx.arc(finalX, finalY, dotRadius, 0, Math.PI * 2);
+
+            if (isNeon) {
+              const limeRatio = Math.max(0, 1 - dist / (mouse.radius * 0.6));
+              ctx.fillStyle = limeRatio > 0.4 ? `rgba(163, 230, 53, ${alpha})` : `rgba(16, 185, 129, ${alpha})`;
+            } else {
+              ctx.fillStyle = `rgba(16, 185, 129, ${alpha})`;
+            }
+            ctx.fill();
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    // 6. Magnetic Links Physics
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - centerX) * 0.22;
+        const deltaY = (e.clientY - centerY) * 0.22;
+        btn.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate3d(0, 0, 0)';
+      });
+    });
+
+    // 7. Interactive Contact Form with Feedback Animation
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const submitSpinner = document.getElementById('submit-spinner');
+
+    if (contactForm && submitBtn) {
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        // Show emerald loading spinner
+        submitSpinner.classList.remove('hidden');
+        submitText.textContent = 'Transmitting...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          submitSpinner.classList.add('hidden');
+          submitText.textContent = 'Message Sent! 🚀';
+          submitBtn.className = 'w-full py-4 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 bg-emerald-400 text-carbon-950 shadow-[0_0_30px_rgba(16,185,129,0.7)] transition-all duration-300';
+
+          // Reset inputs
+          document.getElementById('form-name').value = '';
+          document.getElementById('form-email').value = '';
+          document.getElementById('form-message').value = '';
+
+          // Reset button back to idle after 4.5 seconds
+          setTimeout(() => {
+            submitText.textContent = 'Send Message';
+            submitBtn.className = 'w-full py-4 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-400 to-emerald-500 text-carbon-950 shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.65)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300';
+            submitBtn.disabled = false;
+          }, 4500);
+        }, 1200);
+      });
+    }
+
+    // 8. Custom Cursor Follower & Trailing Light Spark (Easter Egg)
+    (function initCursorFollower() {
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+
+      const core = document.getElementById('cursor-core');
+      const ring = document.getElementById('cursor-ring');
+      if (!core || !ring) return;
+
+      let mouseX = -100, mouseY = -100;
+      let ringX = -100, ringY = -100;
+
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        core.style.left = `${mouseX}px`;
+        core.style.top = `${mouseY}px`;
+
+        const target = e.target;
+        if (
+          target.closest('a') ||
+          target.closest('button') ||
+          target.closest('input') ||
+          target.closest('textarea') ||
+          target.closest('.project-card') ||
+          target.closest('.group\\/skill')
+        ) {
+          ring.style.width = '46px';
+          ring.style.height = '46px';
+          ring.style.borderColor = 'rgba(163, 230, 53, 0.7)';
+          ring.style.boxShadow = '0 0 25px rgba(163, 230, 53, 0.45)';
+        } else {
+          ring.style.width = '28px';
+          ring.style.height = '28px';
+          ring.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+          ring.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.25)';
+        }
+      });
+
+      function loopCursor() {
+        ringX += (mouseX - ringX) * 0.16;
+        ringY += (mouseY - ringY) * 0.16;
+        ring.style.left = `${ringX}px`;
+        ring.style.top = `${ringY}px`;
+        requestAnimationFrame(loopCursor);
+      }
+      loopCursor();
+    })();
+  </script>
+</body>
+</html>
